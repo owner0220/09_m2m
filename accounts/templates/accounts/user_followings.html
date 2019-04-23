@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block body %}
+팔로잉
+<ul>
+{% for u in Tuser.followings.all %}
+    <li>
+        {{u}}
+    </li>
+{% endfor %}
+</ul>
+{% endblock %}

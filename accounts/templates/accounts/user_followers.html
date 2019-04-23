@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block body %}
+팔로워
+<ul>
+{% for u in Tuser.follower.all %}
+    <li>
+        {{u}}
+    </li>
+{% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block body %}
+
+
+<h1>{{Tuser}}</h1>
+<h6>
+팔로잉 : <a href="{% url 'accounts:followings' Tuser.id %}">{{Tuser.followings.count}}</a>
+팔로워 : <a href="{% url 'accounts:followers' Tuser.id %}">{{Tuser.follower.count}}</a>
+</h6>
+
+{% if user != Tuser %}
+   {{user.user_follow.all}}
+   {% if user in Tuser.user_follow.all %}
+    <a href="{% url 'accounts:follow' Tuser.id %}">팔로잉</a>
+   {% else %}
+    <a href="{% url 'accounts:follow' Tuser.id %}">팔로우</a>
+   {% endif %}
+ {% else %}
+   <a href="">Edit profile</a>
+ {% endif %}
+
+<hr style="width: 100%; color: #EEEEEE; height: 1px; background-color: #EEEEEE;" />
+
+<h4>
+ 유저 평가 정보
+</h4>
+ <!--해당 유저가 작성한 평점 정보가 모두 출력된다.-->
+ <ul>
+ {% for sc in Tuser.score_user.all %}
+  <li>
+   <div>
+    <h5>
+    Title : {{sc.movie.title}}
+    <div class="btn btn-success">{{sc.value}}점</div>    
+    </h5>
+    - {{sc.content}}
+   </div>
+  </li>
+ {% endfor %}
+ </ul>
+ 
+ 
+{% endblock %}

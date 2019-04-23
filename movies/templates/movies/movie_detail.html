@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="card m-5">
+  <div class="card-body">
+    <h1 class="card-title">
+      {{movie.title}}
+      <span class="badge badge-success">{{movie.audience}}명</span>
+    </h1>
+    <div class="row">
+      <div class="col col-sm-3 col-xl-2">
+        <img class="w-100" src="{{movie.poster_url}}">    
+      </div>
+      <div class="col col-sm-9 col-xl-10">
+        {{movie.description}}
+      </div>
+    </div>
+    <!--댓글을 보여주는 부분-->
+    <ul class="list-group list-group-flush">
+      {% for comment in movie.score_set.all %}
+      <li class="list-group-item">{{comment.user}} :
+      {{comment.content}}
+      {% if comment.user == user %}
+      
+      <a href="{% url 'movies:movie_score_delete' movie.id comment.id %}" class="btn btn-danger p-1"><small>삭제</small></a></li>
+       {% else %}
+       </li>
+      {% endif %}
+      {% empty%}
+      <li class="list-group-item">댓글이 없어요 ㅠㅠㅠ</li>
+    {% endfor %}
+    </ul>
+  </div>
+</div>
+    
+    
+  
+<form action="{% url 'movies:movie_score_new' movie.id %}" method='post'>
+  {% csrf_token %}
+  {{score_form}}
+  <input type="submit"/>
+</form>
+    
+    
+    
+    
+{% endblock %}

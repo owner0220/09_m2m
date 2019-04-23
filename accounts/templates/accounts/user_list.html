@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block body %}
+    {% for u in Tuser %}
+        <a href="{% url 'accounts:user_detail' u.id %}">
+            <h1>
+            {{u}}
+            </h1>
+        </a>
+    {% endfor %}
+{% endblock %}
